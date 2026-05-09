@@ -9,6 +9,23 @@
 
 ## master (unreleased)
 
+### Bug fixes
+
+* [#1595](https://github.com/rubocop/rubocop-rails/issues/1595): Fix a false negative for `Rails/I18nLocaleTexts` when using `redirect_back_or_to` with a flash message. ([@55728][])
+* [#1587](https://github.com/rubocop/rubocop-rails/pull/1587): Fix false positives for `Rails/Presence` with operator methods like `<<`, `=~`, and others. ([@eugeneius][])
+* [#1586](https://github.com/rubocop/rubocop-rails/pull/1586): Don't add unnecessary parentheses in `Rails/Presence`. ([@eugeneius][])
+* [#1602](https://github.com/rubocop/rubocop-rails/issues/1602): Fix an error in `Rails/SelectMap` when `.select` appears inside a subquery in an argument. ([@koic][])
+* [#1604](https://github.com/rubocop/rubocop-rails/pull/1604): Allow `DatabaseTypeResolvable` to fall back to an `adapter` configuration specified in a `shared` key. ([@codergeek121][])
+* [#1582](https://github.com/rubocop/rubocop-rails/pull/1582): Fix a false negative where `local` was incorrectly treated as a known environment name when using `==` comparison in `Rails/UnknownEnv`. ([@lovro-bikic][])
+
+### Changes
+
+* [#1571](https://github.com/rubocop/rubocop-rails/pull/1571): Add more detection patterns on `Rails/ResponseParsedBody`. ([@r7kamura][])
+* [#1583](https://github.com/rubocop/rubocop-rails/pull/1583): Extend `Rails/StrongParametersExpect` to detect `params[:key]` in method calls and raising finder methods. ([@koic][])
+* [#1584](https://github.com/rubocop/rubocop-rails/pull/1584): Add support for `case` statements to `Rails/UnknownEnv`. ([@lovro-bikic][])
+* [#1592](https://github.com/rubocop/rubocop-rails/pull/1592): Fix false negative for `!=` comparison in `Rails/UnknownEnv`. ([@lovro-bikic][])
+* [#1598](https://github.com/rubocop/rubocop-rails/pull/1598): Use glob patterns compatible with Engine or Packwerk for cops targeting `spec/` and `test/` directories. ([@y-yagi][])
+
 ## 2.34.3 (2026-01-03)
 
 ### Bug fixes
@@ -1386,3 +1403,6 @@
 [@tuxagon]: https://github.com/tuxagon
 [@cdudas17]: https://github.com/cdudas17
 [@davidenglishmusic]: https://github.com/davidenglishmusic
+[@y-yagi]: https://github.com/y-yagi
+[@55728]: https://github.com/55728
+[@codergeek121]: https://github.com/codergeek121
