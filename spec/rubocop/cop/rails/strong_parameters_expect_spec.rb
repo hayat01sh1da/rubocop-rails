@@ -25,6 +25,36 @@ RSpec.describe RuboCop::Cop::Rails::StrongParametersExpect, :config do
       RUBY
     end
 
+    it 'does not register an offense when using `key = params[:key].to_i`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].to_i
+      RUBY
+    end
+
+    it 'does not register an offense when using `params[:key].to_s`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].to_s
+      RUBY
+    end
+
+    it 'does not register an offense when using `params[:key].to_a`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].to_a
+      RUBY
+    end
+
+    it 'does not register an offense when using `params[:key].to_f`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].to_f
+      RUBY
+    end
+
+    it 'does not register an offense when using `params[:key].to_h`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].to_h
+      RUBY
+    end
+
     it "does not register an offense when using `params[:key] == 'value'`" do
       expect_no_offenses(<<~RUBY)
         params[:key] == 'value'
