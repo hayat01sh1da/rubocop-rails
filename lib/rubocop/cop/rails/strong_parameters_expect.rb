@@ -8,7 +8,7 @@ module RuboCop
       # In the following cases, `params[:key]` is treated as a key that is expected to be passed from the HTTP client,
       # and the cop detects it using the `expect` method.
       #
-      # - Method calls on `params[:key]` without comparison methods
+      # - Method calls on `params[:key]` without comparison methods and nil-safe conversion methods
       # - Passing `params[:key]` as an argument to finder methods that raise on missing records
       # - Strong parameter methods using `require` or `permit`
       #
@@ -54,6 +54,7 @@ module RuboCop
         MSG = 'Use `%<prefer>s` instead.'
         RESTRICT_ON_SEND = %i[[] require permit].freeze
         PRESENCE_CHECK_METHODS = %i[nil? blank? present? presence].freeze
+        NIL_SAFE_CONVERSION_METHODS = %i[to_a to_f to_h to_i to_s].freeze
         RAISING_FINDER_METHODS = %i[find find_by! find_sole_by].freeze
 
         minimum_target_rails_version 8.0
@@ -131,9 +132,11 @@ module RuboCop
           return false unless parent.call_type?
 
           if parent.receiver == node
-            return false if parent.comparison_method?
+            return false if parent.comparison_method? || parent.method?(:[])
 
-            !parent.method?(:[]) && !PRESENCE_CHECK_METHODS.include?(parent.method_name)
+            method_name = parent.method_name
+
+            !PRESENCE_CHECK_METHODS.include?(method_name) && !NIL_SAFE_CONVERSION_METHODS.include?(method_name)
           else
             raising_finder_method?(parent)
           end
