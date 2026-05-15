@@ -55,6 +55,24 @@ RSpec.describe RuboCop::Cop::Rails::StrongParametersExpect, :config do
       RUBY
     end
 
+    it 'does not register an offense when using `params[:key].is_a?(String)`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].is_a?(String)
+      RUBY
+    end
+
+    it 'does not register an offense when using `params[:key].kind_of?(String)`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].kind_of?(String)
+      RUBY
+    end
+
+    it 'does not register an offense when using `params[:key].instance_of?(String)`' do
+      expect_no_offenses(<<~RUBY)
+        params[:key].instance_of?(String)
+      RUBY
+    end
+
     it "does not register an offense when using `params[:key] == 'value'`" do
       expect_no_offenses(<<~RUBY)
         params[:key] == 'value'
